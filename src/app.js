@@ -30,7 +30,7 @@ const app = server.createServer(async (req, res) => {
   }
 
   return res.writeHead(404).end()
-});
+})
 
 const PORT = 3000
 

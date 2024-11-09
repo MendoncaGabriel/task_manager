@@ -39,9 +39,9 @@ const routes = [
           }
         })
 
-        if(errosInserts.length == 0){
+        if (errosInserts.length == 0) {
           return res.writeHead(200).end()
-        }else{
+        } else {
           return res.writeHead(200).end(JSON.stringify(errosInserts))
         }
 
@@ -130,34 +130,34 @@ const routes = [
   {
     method: "PUT",
     path: buildRouthPath("/tasks/:id/mark-as-complete"),
-    handle: (req, res) => {
+    handle: async (req, res) => {
       const { id } = req.params
-  
+
       const tasks = db.select({
         table: "tasks",
         search: { id }
       })
-  
+
       if (tasks.length === 0) {
-        return res.writeHead(404).end("Task not found with id")
+        return res.writeHead(404).end(JSON.stringify({ message: "Task not found with id" }))
       }
-  
+
       const task = tasks[0]
-  
-      let updatedTask;
+
+      let updatedTask
 
       try {
-        
+
         if (task.completed_at == null) {
-          updatedTask = db.update({
+          updatedTask = await db.update({
             data: {
-              completed_at: new Date().toISOString() 
+              completed_at: new Date().toISOString()
             },
             table: "tasks",
             id
           })
         } else {
-          updatedTask = db.update({
+          updatedTask = await db.update({
             data: {
               completed_at: null
             },
@@ -165,16 +165,13 @@ const routes = [
             id
           })
         }
+
         return res.writeHead(200).end(JSON.stringify(updatedTask))
       } catch (error) {
         return res.writeHead(400).end(JSON.stringify(error))
-        
       }
-  
     }
   }
-  
-
 ]
 
 export default routes
