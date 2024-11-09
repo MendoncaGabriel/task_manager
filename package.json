@@ -1,0 +1,21 @@
+{
+  "name": "task_manager",
+  "version": "1.0.0",
+  "main": "./src/app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/app.js",
+    "start": "node src/app.js"
+  },
+  "keywords": [],
+  "author": "Gabriel Andrade Mendonça",
+  "license": "ISC",
+  "description": "API to manage tasks with CRUD, import via CSV and status marking (done or pending).",
+  "dependencies": {
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.8.6",
+    "csv-parse": "^5.5.6",
+    "formidable": "^3.5.2",
+    "multer": "^1.4.5-lts.1"
+  }
+}
